@@ -1,7 +1,9 @@
-﻿using EmployeeSignInSystem.Models;
+﻿using EmployeeSignInSystem.DBContext;
+using EmployeeSignInSystem.Models;
 using EmployeeSignInSystem.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EmployeeSignInSystem.Services
 {
@@ -28,50 +30,27 @@ namespace EmployeeSignInSystem.Services
         {
             return _guardRepo.BadgeOutEmps();
         }
-
-        public IEnumerable<EmployeeTempBadge> GetReport(DateTime Sdate, DateTime Edate, string FirstName = "", string LastName = "")
+        EmployeeSigningSystemContext _context = new EmployeeSigningSystemContext();
+        public IEnumerable<EmployeeTempBadge> GetReport(DateTime Sdate, DateTime Edate /*DateTime.MaxValue*/, string FirstName, string LastName )
         {
-            DateTime Stemp = new DateTime(0001, 01, 01, 00, 00, 00);
-            DateTime Etemp = new DateTime(0001, 01, 01, 00, 00, 00);
-            DateTime Etemp2 = new DateTime(2050, 01, 01, 00, 00, 00);
-
-
-
-            //if names given
-            if (!string.IsNullOrEmpty(FirstName) || !string.IsNullOrEmpty(LastName))
+            //if(Edate == DateTime.MinValue)
+            //{
+            //    Edate = DateTime.MaxValue;
+            //}
+            IQueryable<EmployeeTempBadge> query = _context.EmployeeTempBadge.Where(x => x.EmployeeFirstName != null);
+            if (!string.IsNullOrEmpty(FirstName))
             {
-                //if dates given
-                if (Sdate != Stemp || Edate != Etemp)
-                {
-                    //all 4 valid
-                    return _guardRepo.GetReport(Sdate, Edate, FirstName, LastName);
-                }
-                //when only names
-                return _guardRepo.GetReport(Stemp, Etemp2, FirstName, LastName);
-
-
+                query = query.Where(x=>x.EmployeeFirstName.Contains(FirstName));   
 
             }
-            //names not given
-            else
+            if(!string.IsNullOrEmpty(LastName))
             {
-                if (Sdate != Stemp || Edate != Etemp)
-                {
-                    //dates given
-                    return _guardRepo.GetReportByTimePeriod(Sdate, Edate);
-
-
-
-                }
-                //dates not given
-                return _guardRepo.GetReportByTimePeriod(Stemp, Etemp2);
-
-
-
+                query = query.Where(x => x.EmployeeLastName.Contains(LastName));
 
             }
+            query = query.Where(x => x.SignInT >= Sdate && x.SignInT <= Edate && (x.SignOutT <= Edate || x.SignOutT == null)) ;
 
-
+            return query.ToList();
         }
     }
 }

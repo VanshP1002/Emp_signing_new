@@ -27,9 +27,9 @@ namespace EmployeeSignInSystem.Repositories
             return false;
         }
 
-        public IEnumerable<EmployeeDetails> FetchDetails(string id)
+        public List<EmployeeDetails> FetchDetails(string id)
         {
-            IEnumerable<EmployeeDetails> details = _DbContext.EmployeeDetails.Where(emp => emp.Id == id).ToList();
+            List<EmployeeDetails> details = _DbContext.EmployeeDetails.Where(emp => emp.Id == id).ToList();
             return details;
         }
 

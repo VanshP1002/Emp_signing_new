@@ -75,35 +75,35 @@ namespace EmployeeSignInSystem.Repositories
             return inQueueEmps;
         }
 
-        public IEnumerable<EmployeeTempBadge> GetReport(DateTime SDate = default, DateTime EDate = default, string FirstName = "", string LastName = "")
-        {
-            //for all 4 && condition
-            if (LastName == null)
-            {
-                LastName = string.Empty;
-            }
-            if (FirstName == null)
-            {
-                FirstName = string.Empty;
-            }
-            return _DBContext.EmployeeTempBadge.Where(emp => emp.EmployeeFirstName.Contains(FirstName) && emp.EmployeeLastName.Contains(LastName) && emp.SignInT > SDate && emp.SignOutT < EDate && emp.AssignT != null).ToList();
-        }
+        //public IEnumerable<EmployeeTempBadge> GetReport(DateTime SDate = default, DateTime EDate = default, string FirstName = "", string LastName = "")
+        //{
+        //    //for all 4 && condition
+        //    if (LastName == null)
+        //    {
+        //        LastName = string.Empty;
+        //    }
+        //    if (FirstName == null)
+        //    {
+        //        FirstName = string.Empty;
+        //    }
+        //    return _DBContext.EmployeeTempBadge.Where(emp => emp.EmployeeFirstName.Contains(FirstName) && emp.EmployeeLastName.Contains(LastName) && emp.SignInT > SDate && emp.SignOutT < EDate && emp.AssignT != null).ToList();
+        //}
 
 
 
-        public IEnumerable<EmployeeTempBadge> GetReportByTimePeriod(DateTime? Sdate = null, DateTime? EDate = null)
-        {
-            var Edate1 = EDate;
+        //public IEnumerable<EmployeeTempBadge> GetReportByTimePeriod(DateTime? Sdate = null, DateTime? EDate = null)
+        //{
+        //    var Edate1 = EDate;
 
 
 
-            if (EDate == DateTime.MinValue)
-            {
-                Edate1 = DateTime.MaxValue;
-            }
-            //And condition to implement is signout time
-            var getByTime = _DBContext.EmployeeTempBadge.Where(emp => (emp.SignInT >= Sdate) && emp.SignInT < Edate1 && (emp.SignOutT < Edate1 || emp.SignOutT == null) && emp.AssignT != null).ToList();
-            return getByTime;
-        }
+        //    if (EDate == DateTime.MinValue)
+        //    {
+        //        Edate1 = DateTime.MaxValue;
+        //    }
+        //    //And condition to implement is signout time
+        //    var getByTime = _DBContext.EmployeeTempBadge.Where(emp => (emp.SignInT >= Sdate) && emp.SignInT < Edate1 && (emp.SignOutT < Edate1 || emp.SignOutT == null) && emp.AssignT != null).ToList();
+        //    return getByTime;
+        //}
     }
 }

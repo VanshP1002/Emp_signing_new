@@ -18,7 +18,7 @@ namespace EmployeeSignInSystem.Services
         {
             if (_empRepo.checkAlreadyRequested(id))
             {
-                IEnumerable<EmployeeDetails> details = _empRepo.FetchDetails(id);
+                List<EmployeeDetails> details = _empRepo.FetchDetails(id);
                 Random r = new Random();
                 int tempId = r.Next(1, 1000);
                 temp.Id = tempId;
