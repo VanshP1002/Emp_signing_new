@@ -31,7 +31,7 @@ namespace EmployeeSignInSystem.DBContext
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=HSHLT-1713\\SQLEXPRESS01;Database=EmployeeSigningSystem;Trusted_Connection=True;trustservercertificate = True");
+                optionsBuilder.UseSqlServer("Server=tcp:vanshsqlserver.database.windows.net,1433;Initial Catalog=Vanshdb;Persist Security Info=False;User ID=vansh;Password=1955@Vietnamwar;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 

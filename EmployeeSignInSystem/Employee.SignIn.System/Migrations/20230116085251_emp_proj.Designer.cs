@@ -4,14 +4,16 @@ using EmployeeSignInSystem.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EmployeeSignInSystem.Migrations
 {
     [DbContext(typeof(EmployeeSigningSystemContext))]
-    partial class EmployeeSigningSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20230116085251_emp_proj")]
+    partial class emp_proj
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
